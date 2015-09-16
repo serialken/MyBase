@@ -1,0 +1,7 @@
+parameters:
+#    serialken_user.example.class: Serialken\UserBundle\Example
+
+services:
+#    serialken_user.example:
+#        class: %serialken_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

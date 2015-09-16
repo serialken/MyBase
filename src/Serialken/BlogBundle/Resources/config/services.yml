@@ -1,0 +1,33 @@
+# src\Serialken\BlogBundle\Resources\config
+parameters:
+#    serialken_blog.example.class: Serialken\BlogBundle\Example
+
+services:
+#    serialken_blog.example:
+#        class: %serialken_blog.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+       serialken_blog.antispam:
+            class: Serialken\BlogBundle\Antispam\SerialkenAntispam
+            arguments: [@mailer, 3]
+            calls:
+                - [setLocale, [ %locale% ] ]
+#            tags:
+#                - { name: twig.extension }
+       
+       serialken_blog.ckeditor:
+           class: Serialken\BlogBundle\Form\Type\CkeditorType
+           tags:
+               - { name: form.type, alias: ckeditor }
+               
+       serilaken_blog.beta_listener:
+           class: Serialken\BlogBundle\beta\BetaListener
+           arguments: ["2014-06-30"]
+           tags:
+               - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+               
+       serialken_blog.censure_listener:
+           class: Serialken\BlogBundle\BigBrother\CensureListener
+           arguments: [[1, 2], @mailer]
+           tags:
+               - { name: kernel.event_listener, event: serialkenblog.bigbrother.post_message, method: onMessagePost }
+           

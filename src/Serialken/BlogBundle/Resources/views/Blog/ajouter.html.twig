@@ -1,0 +1,30 @@
+{# src\Serialken\BlogBundle\Resources\views\Blog #}
+
+{% extends "SerialkenBlogBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter un article - {{ parent() }}
+{% endblock %}
+
+{% block serialken_body %}
+
+   <h2>Ajouter un article</h2>
+   
+   {% include "SerialkenBlogBundle:Blog:formulaire.html.twig"  with  {'sujet': 'd\'article'} %}
+   
+   <p>
+     Attention : cet article sera ajouté directement
+	 sur la page d'accueil apres validation du formulaire.
+   </p>
+   
+   <p>
+     {# pour le momment jaffiche juste un lien pour retourner en dur #}
+	 <a href="{{ path('serialkenblog_accueil') }}" class="btn"> 
+	 
+     {# <a href="{{ path('serialkenblog_voir', {'id': article.id}) }}" class="btn"> #}
+	   <i class="icon-chevron-left"></i>
+	   Retour à la liste
+	 </a>
+   </p>
+   
+{% endblock %}

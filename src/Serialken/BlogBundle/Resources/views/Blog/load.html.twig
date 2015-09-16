@@ -1,0 +1,22 @@
+{# src\Serialken\BlogBundle\Resources\views\Blog #}
+
+{% extends "SerialkenBlogBundle::layout.html.twig" %}
+
+{% block title %}
+  Page de load de donnees fictives sur la BDD - {{ parent() }}
+{% endblock %}
+
+{% block serialken_body %}
+ 
+   <p>
+     les donnees on bien ete enregistre en dur a propos des {{ sujet}}s.
+   </p>
+   
+   <p>
+     <a href="{{ path('serialkenblog_accueil') }}" class="btn">
+	   <i class="icon-chevron-left"></i>
+	   Retour à l'accueil
+	 </a>
+   </p>
+   
+{% endblock %}

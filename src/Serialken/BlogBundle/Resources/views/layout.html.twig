@@ -1,0 +1,21 @@
+{# src\Serialken\BlogBundle\Resources\views #}
+
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+  Blog - {{ parent() }}
+{% endblock%}
+
+{% block body %}
+
+  {# un titre commun a toutes les pages du bundle #}
+  <h1>Blog</h1>
+  
+  <hr>
+  
+  {# et la je mets un nouveau bloc que les vues bundles vont use #}
+  {% block serialken_body %}
+  {% endblock%}
+  
+{% endblock %}

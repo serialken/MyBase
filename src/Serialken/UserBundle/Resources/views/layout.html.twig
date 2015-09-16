@@ -1,0 +1,21 @@
+{# src\Serialken\UserBundle\Resources\views #}
+
+{# on etend notre layout #}
+
+{% extends "::layout.html.twig" %}
+
+{# dans notre layout il faut definir le block body #}
+{% block body %}
+    {# on affiche les messages flash que dfinissent le controlleur du bundle   #}
+    {% for key, message in app.session.flashbag.all %}
+        <div class="alert alert-{{ key }}">
+            {{ message|trans({}, 'FOSUserBundle') }}
+        </div>
+    {% endfor %}
+    
+    
+{#  pour les autres vues  #}
+{% block fos_user_content %}
+{% endblock fos_user_content %}
+
+{% endblock %}

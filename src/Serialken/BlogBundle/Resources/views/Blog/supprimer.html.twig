@@ -1,0 +1,32 @@
+{#  src\Serialken\BlogBundle\Resources\views\Blog #}
+
+{% extends "SerialkenBlogBundle::layout.html.twig" %}
+
+{% block title %}
+    Supprimer un article - {{ parent()}}
+{% endblock %}
+
+{% block serialken_body %}
+
+   <h2>Supprimer un article</h2>   
+    
+   <p>
+      Etes vous sur de vouloir supprimer l'article "{{ article.titre }}" ?
+   </p>
+
+   {#eh bim on met l'id dans la route et par mla meme on genere un CSRF  #}
+   <form action="{{ path('serialkenblog_supprimer', { 'id': article.id}) }}" method="post">
+       <a href="{{ path('serialkenblog_voir', {'id': article.id }) }}" class="btn">
+           <i class="icon-chevron-left"></i>
+           Retour à l'article
+       </a>
+       <a href="{{ path('serialkenblog_accueil') }}" class="btn">
+	   <i class="icon-chevron-left"></i>
+	   Retour à la liste
+        </a>
+        <input type="submit" value="supprimer" class="btn btn-danger" />
+        {{ form_rest(form) }}
+   </form>
+   
+{% endblock %}
+

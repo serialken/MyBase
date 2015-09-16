@@ -1,0 +1,67 @@
+{# src\Serialken\BlogBundle\Resources\views\Blog #}
+
+{% set comment = comment|default(false) %}
+
+{% extends "SerialkenBlogBundle::layout.html.twig" %}
+
+{% block title %}
+  Lecture d'un article - {{ parent() }}
+{% endblock %}
+
+{% block serialken_body %}
+
+   
+    {% include "SerialkenBlogBundle:Blog:article.html.twig"   %}
+    
+    {% if listeArticleCompetence|length > 0 %} 
+       <div> 
+           Compétences utilisées dans cet article : 
+           <ul> 
+           {% for articleCompetence in listeArticleCompetence %} 
+                 <li> {{ articleCompetence.competence.nom }} : {{ articleCompetence.niveau }}</li> 
+              {% endfor %}  
+            </ul> 
+        </div>
+    {% endif %}
+  
+    {% if listeCommentaires|length > 0 %}
+    <h4>Commentaires <span class="badge">{{ listeCommentaires|length }}</span></h4> 
+        {% for commentaire in listeCommentaires %}
+            <div class="alert alert-info">
+                {{ commentaire.auteur }}: {{ commentaire.contenu }}
+                <a href="{{ path('serialkenblog_supprimer_commentaire', {id: article.id}) }}" class=" btn btn-mini"> 
+                    <i class="icon-chevron-down"></i>
+                        supprimer commentaire
+                </a>
+            </div>
+        {% endfor %}
+   {% else %}
+     <div class="alert alert-info">Pas encore de commentaires !!!!!!</div>
+   {% endif %}
+    {#   si true on est en creation  de commentaire#}
+   {% if comment %}
+       {% include "SerialkenBlogBundle:Blog:formulaire.html.twig"  with  {'sujet': 'de commentaires'} %}
+   {%else%}
+   <p>
+       <a href="{{ path('serialkenblog_ajouter_commentaire', {id: article.id}) }}" class=" btn btn-mini"> 
+           <i class="icon-chevron-down"></i>
+           ajouter un commentaire
+       </a>
+   </p>
+   {% endif %}
+  <p>
+    <a href="{{ path('serialkenblog_accueil') }}" class="btn">
+	  <i class="icon-chevron-left"></i>
+	  Retour à la liste
+	</a>
+	<a href="{{ path('serialkenblog_modifier', {'id': article.id}) }}" class="btn">
+	  <i class="icon-chevron-left"></i>
+	  Modifier l'article
+	</a>
+	<a href="{{ path('serialkenblog_supprimer', {'id': article.id}) }}" class="btn">
+	  <i class="icon-trash"></i>
+	  Supprimer l'article
+	</a>
+  </p>
+  
+{% endblock %}

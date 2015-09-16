@@ -1,0 +1,72 @@
+{# app\Resources\views #}
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	
+	<title>{% block tittle %}Serialken{% endblock %}</title>
+	
+	{% block stylesheets %}
+	  {# Declaration du css contenu dans web/css/. avec la fonction asset #}
+	  <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
+    {% endblock %}
+  </head>
+  
+  <body>
+    <div class="container">
+      <div id="header" class="hero-unit">
+          <h1>Mon projet symfony2</h1>
+          <p>Ce projet est dans le cadre de ma formation Symfony2 :) .</p>
+          <p><a class="btn btn-primary btn-large" href="http://www.siteduzero.com/informatique/tutoriels/developpez-votre-site-web-avec-le-framework-symfony2">
+           Lire le tutoriel >>
+           </a></p>
+        </div>	
+        <div>
+        {%if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+        {% endif %}
+        </div>
+	    <div class="row">	
+	      <div id="menu" class="span3">
+            <h3>Menu</h3>
+            <ul class="nav nav-pills nav-stacked">
+			{# creation de lien vers dautres routes notamment laccueil et lajout d'articles#}
+            <li><a href="{{ path('serialkenblog_accueil') }}">Accueil du blog</a></li>
+            <li><a href="{{ path('serialkenblog_ajouter') }}">Ajouter un article</a></li>           
+            </ul>
+            
+			{# inclusion de la methode menu du controller Blog du bundle avec largument nombre defini a 3( inclusion d'un controller trop classe) #}
+	         {{ render(controller("SerialkenBlogBundle:Blog:menu", {'nombre': 3})) }}
+             </div>
+             <div id="content" class="span9">
+		   {# creation du bloc body sans rien sa va se remplir avec les Temp qui vont l'inclure#}
+           {% block body %}
+		   {% endblock %}
+	     </div>
+	    </div>
+		
+        <hr>
+        
+		<footer class="container">
+		 <p>Symply the best !!!!!!! SerialArt</p>
+		 </footer>
+    </div>
+	
+  {% block javascripts %}
+	{# je mets sa pour le moment mais je sais pas trop a quoi sa sert je verrai bien qui ne test pas ne reussi pas #}
+	 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	 <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+         <script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+         <script type="text/javascript" src="{{ asset('js/ckeditor/adapters/jquery.js') }}"></script>
+         <script type="text/javascript">
+             $().ready(function () {
+                  $('.ckeditor').ckeditor();
+             });
+         </script>
+  {% endblock %}
+	
+  </body>
+</html>

@@ -1,0 +1,38 @@
+{# src\Serialken\BlogBundle\Resources\views\Blog #}
+
+{% set accueil = accueil|default(false) %} 
+
+<h3>
+    {% if article.image is not null %}
+        <img src="{{ asset(article.image.webPath) }}"
+             alt="{{ article.image.alt }}" 
+         />
+    {% endif %}
+{#    si on est sur laccueil on fait un lien vers larticle #}
+    {% if accueil %}
+        <a href="{{ path('serialkenblog_voir', {'id': article.id}) }} ">{{ article.titre }}</a>
+    {% else %}
+        {{ article.titre }}
+    {% endif %}
+</h3>
+   <i> Créé le {{article.date|date('d/m/y') }}, par {{article.auteur}}</i>
+   {#   et les categories si on veut #}
+   {% if article.categories.count > 0 %}
+       
+           <i>
+                    - catégories :
+                   {% for categorie in article.categories%}
+                       {{ categorie.nom }}{% if not loop.last %}, {% endif %}
+                   {% endfor %}
+            </i>     
+   {% endif %}
+   
+   
+   
+   <div class="well">
+       {{ article.contenu }}
+   </div>
+   {%if article.dateEdition is defined %}<i>Derniére modification: {{ article.dateEdition |date('d/m/Y') }}</i>{% endif %}
+   
+   
+   

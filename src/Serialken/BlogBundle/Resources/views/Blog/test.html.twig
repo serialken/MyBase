@@ -1,0 +1,17 @@
+{# src\Serialken\BlogBundle\Resources\views\Blog #}
+
+{% extends "SerialkenBlogBundle::layout.html.twig" %}
+
+{% block title %}
+    Page de test - {{ parent() }}
+{% endblock %}
+
+{% block serialken_body %}
+    <h2>{{ article.titre }} de  {{ article.auteur }} Le {{ article.date|date('d/m/Y')}}</h2>
+    
+   <div class="well">
+    {{ article.contenu }}
+  </div>
+    
+    
+{% endblock %}
